@@ -1,13 +1,39 @@
 import logo from './logo.svg';
 import './App.css';
+// import { Component } from 'react';
 
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          {1+1} - código Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+    );
+  }
+}
+
+/*
 function App() {
   return (
+     // elemento root - necessario ao react
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {1+1} - código Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
           className="App-link"
@@ -21,5 +47,6 @@ function App() {
     </div>
   );
 }
+*/
 
 export default App;
