@@ -14,6 +14,7 @@ class App extends Component {
   }*/
   
   state = {
+    count: 0,
     sessions: []
   };
 
@@ -53,14 +54,29 @@ class App extends Component {
       ]
     })
   }
+  timeoutUpdate = null;
+
+ // function called when screen is updated
+  componentDidUpdate() {
+    const { sessions, count } = this.state;
+    this.timeoutUpdate = setTimeout (() => {
+      this.setState({count: count + 1, sessions})
+    }, 1000);
+  }
+
+  // function called when screen will unmount
+  componentWillUnmount() {
+    clearTimeout(this.timeoutUpdate);
+  }
 
   // render - visual screen
   render() {
-    const { sessions } = this.state;
+    const { sessions, count } = this.state;
 
     return (
       // can only return one element
       <div className="App">
+        <h1>{count}</h1>
       {sessions.map(session =>
         <div className="session" key={session.id}>
           <h1>{session.title}</h1>
