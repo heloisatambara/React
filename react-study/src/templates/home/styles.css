@@ -1,7 +1,10 @@
 .container {
+  max-width: 1200px;
+  margin: 0 auto;
   min-height: 100vh;
   background-color: #31323f;
   color: #ddd;
+  padding: 30px;
 }
 
 .posts {
@@ -11,8 +14,13 @@
 }
 
 .post {
-  background-color: #ffffff0a;
+  background-color: #ffffff07;
   box-shadow: 0 0 10px #00000031;
+  transition: transform 200ms ease-in-out;
+}
+
+.post:hover {
+  transform: scale(1.05);
 }
 
 .post img {
