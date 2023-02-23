@@ -13,9 +13,24 @@ class App extends Component {
     };
   }*/
   
-  state = {
-    name: 'helo',
-    counter: 0
+  state = {}
+    sessions = {
+      {
+        id: 1,
+        title: 'Lorem Ipsum 1',
+        body: 'Lorem Ipsum 1'
+      },
+      {
+        id: 2,
+        title: 'Lorem Ipsum 2',
+        body: 'Lorem Ipsum 2'
+      },
+      {
+        id: 3,
+        title: 'Lorem Ipsum 3',
+        body: 'Lorem Ipsum 3'
+      }
+    }
   }
 
   handlePClick = () => {
@@ -33,24 +48,17 @@ class App extends Component {
 
 
   render() {
-    const { name, counter } = this.state;
+    const { sessions } = this.state;
 
     return (
+      // can only return one element
       <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p onClick={this.handlePClick}>
-          {name} {counter}
-        </p>
-        <a onClick={this.handleAClick}
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {sessions.map(session =>
+        <div className="session" key={session.id}>
+          <h1>{session.title}</h1>
+          <p>{session.body}</p>
+        </div>  
+      )}
     </div>
     );
   }
