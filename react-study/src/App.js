@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { Component } from 'react';
 
@@ -14,30 +14,16 @@ class App extends Component {
   }*/
   
   state = {
-    sessions: [
-      {
-        id: 1,
-        title: 'Lorem Ipsum 1',
-        body: 'Lorem Ipsum 1'
-      },
-      {
-        id: 2,
-        title: 'Lorem Ipsum 2',
-        body: 'Lorem Ipsum 2'
-      },
-      {
-        id: 3,
-        title: 'Lorem Ipsum 3',
-        body: 'Lorem Ipsum 3'
-      },
-    ]
+    sessions: []
   };
 
+  // I created
   handlePClick = () => {
     // whenever state is chagned, render is called again
     this.setState({name: 'tambara'});
   }
 
+  // I created
   handleAClick = (event) => {
     // arrow function doesn't need bind to use "this" attributes
     event.preventDefault() // prevents clicking from taking us to the page with the link
@@ -45,8 +31,30 @@ class App extends Component {
     this.setState({counter: counter + 1});
   }
 
+  // function that is called if render() goes ok
+  componentDidMount() {
+    this.setState({
+      sessions: [
+        {
+          id: 1,
+          title: 'Lorem Ipsum 1',
+          body: 'Lorem Ipsum 1'
+        },
+        {
+          id: 2,
+          title: 'Lorem Ipsum 2',
+          body: 'Lorem Ipsum 2'
+        },
+        {
+          id: 3,
+          title: 'Lorem Ipsum 3',
+          body: 'Lorem Ipsum 3'
+        },
+      ]
+    })
+  }
 
-
+  // render - visual screen
   render() {
     const { sessions } = this.state;
 
