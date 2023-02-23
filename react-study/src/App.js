@@ -14,7 +14,6 @@ class App extends Component {
   }*/
   
   state = {
-    count: 0,
     posts: []
   };
 
@@ -42,17 +41,23 @@ class App extends Component {
 
   loadPosts = async () => {
     const postsResponse = fetch('https://jsonplaceholder.typicode.com/posts');
+    const photosResponse = fetch('https://jsonplaceholder.typicode.com/photos');
 
-    const [posts] = await Promise.all([postsResponse]);
+    const [posts, photos] = await Promise.all([postsResponse, photosResponse]);
 
     const postsJson = await posts.json(); // takes the response and transforms into json
+    const photosJson = await photos.json();
 
-    this.setState({posts: postsJson});
+    const postsAndPhotos = postsJson.map((post, index) => {
+      return {...post, cover: photosJson[index].url}
+    })
+
+    this.setState({posts: postsAndPhotos});
     
   }
   
 
- // function called when screen is updated
+ /*/ function called when screen is updated
  // handles changes after componentDidMount()
   componentDidUpdate() {
     const { posts, count } = this.state;
@@ -66,22 +71,27 @@ class App extends Component {
   componentWillUnmount() {
     clearTimeout(this.timeoutUpdate);
   }
+  */
 
   // render - visual screen
   render() {
-    const { posts, count } = this.state;
+    const { posts} = this.state;
 
     return (
       // can only return one element
-      <div className="posts">
-        <h1>{count}</h1>
-      {posts.map(post =>
-        <div className="postCard" key={post.id}>
-          <h1>{post.title}</h1>
-          <p>{post.body}</p>
-        </div>  
-      )}
-    </div>
+      <section className="container">
+        <div className="posts">
+          {posts.map(post =>
+            <div className='post'>
+              <img src = {post.cover} alt = {post.title}/>
+              <div className="post-content" key={post.id}>
+                <h1>{post.title}</h1>
+                <p>{post.body}</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
     );
   }
 }
