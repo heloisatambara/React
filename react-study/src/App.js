@@ -13,8 +13,8 @@ class App extends Component {
     };
   }*/
   
-  state = {}
-    sessions = {
+  state = {
+    sessions: [
       {
         id: 1,
         title: 'Lorem Ipsum 1',
@@ -29,14 +29,14 @@ class App extends Component {
         id: 3,
         title: 'Lorem Ipsum 3',
         body: 'Lorem Ipsum 3'
-      }
-    }
-  }
+      },
+    ]
+  };
 
   handlePClick = () => {
     // whenever state is chagned, render is called again
     this.setState({name: 'tambara'});
-  } 
+  }
 
   handleAClick = (event) => {
     // arrow function doesn't need bind to use "this" attributes
