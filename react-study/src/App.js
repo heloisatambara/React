@@ -15,8 +15,11 @@ class App extends Component {
   
   state = {
     count: 0,
-    sessions: []
+    posts: []
   };
+
+  timeoutUpdate = null;
+
 
   // I created
   handlePClick = () => {
@@ -34,53 +37,48 @@ class App extends Component {
 
   // function that is called if render() goes ok
   componentDidMount() {
-    this.setState({
-      sessions: [
-        {
-          id: 1,
-          title: 'Lorem Ipsum 1',
-          body: 'Lorem Ipsum 1'
-        },
-        {
-          id: 2,
-          title: 'Lorem Ipsum 2',
-          body: 'Lorem Ipsum 2'
-        },
-        {
-          id: 3,
-          title: 'Lorem Ipsum 3',
-          body: 'Lorem Ipsum 3'
-        },
-      ]
-    })
+    this.loadPosts();
   }
-  timeoutUpdate = null;
+
+  loadPosts = async () => {
+    const postsResponse = fetch('https://jsonplaceholder.typicode.com/posts');
+
+    const [posts] = await Promise.all([postsResponse]);
+
+    const postsJson = await posts.json(); // takes the response and transforms into json
+
+    this.setState({posts: postsJson});
+    
+  }
+  
 
  // function called when screen is updated
+ // handles changes after componentDidMount()
   componentDidUpdate() {
-    const { sessions, count } = this.state;
+    const { posts, count } = this.state;
     this.timeoutUpdate = setTimeout (() => {
-      this.setState({count: count + 1, sessions})
+      this.setState({count: count + 1, posts})
     }, 1000);
   }
 
   // function called when screen will unmount
+  // used to clean whatever componentDidMount() did, so it can mount again
   componentWillUnmount() {
     clearTimeout(this.timeoutUpdate);
   }
 
   // render - visual screen
   render() {
-    const { sessions, count } = this.state;
+    const { posts, count } = this.state;
 
     return (
       // can only return one element
-      <div className="App">
+      <div className="posts">
         <h1>{count}</h1>
-      {sessions.map(session =>
-        <div className="session" key={session.id}>
-          <h1>{session.title}</h1>
-          <p>{session.body}</p>
+      {posts.map(post =>
+        <div className="postCard" key={post.id}>
+          <h1>{post.title}</h1>
+          <p>{post.body}</p>
         </div>  
       )}
     </div>
@@ -88,8 +86,7 @@ class App extends Component {
   }
 }
 
-/*
-function App() {
+/* function App() {
   return (
      // elemento root - necessario ao react
     <div className="App">
@@ -109,7 +106,6 @@ function App() {
       </header>
     </div>
   );
-}
-*/
+} */
 
 export default App;
