@@ -4,20 +4,14 @@ import { Component } from 'react';
 
 import { Posts } from '../../components/Posts';
 import { loadPosts } from '../../utils/load-posts';
+import { Button } from '../../components/Button';
 
 export class Home extends Component {
-  /* constructor(props) {
-    super(props);
-    this.handlePClick = this.handlePClick.bind(this); // so handlePClick() can use "this" attributes even if its not an arrow function
-
-    this.state = {
-      name: 'Helo',
-      counter: 0
-    };
-  }*/
-  
   state = {
-    posts: []
+    posts: [],
+    allPosts: [],
+    page: 0,
+    postsPerPage: 2
   };
 
   // function that is called if render() goes ok
@@ -25,36 +19,43 @@ export class Home extends Component {
     await this.loadPosts();
   }
 
+  // async bc of the fetch in loadPosts()
   loadPosts = async () => {
+    const {page, postsPerPage} = this.state;
     const postsAndPhotos = await loadPosts();
-    this.setState({posts: postsAndPhotos});
-  }
-  
-
- /*/ function called when screen is updated
- // handles changes after componentDidMount()
-  componentDidUpdate() {
-    const { posts, count } = this.state;
-    this.timeoutUpdate = setTimeout (() => {
-      this.setState({count: count + 1, posts})
-    }, 1000);
+    this.setState({
+      posts: postsAndPhotos.slice(page, postsPerPage),
+      allPosts: postsAndPhotos});
   }
 
-  // function called when screen will unmount
-  // used to clean whatever componentDidMount() did, so it can mount again
-  componentWillUnmount() {
-    clearTimeout(this.timeoutUpdate);
+  loadMorePosts = () => {
+    const {postsPerPage, page, allPosts, posts} = this.state;
+    const nextPage = page + postsPerPage;
+    const nextPosts = allPosts.slice(nextPage, nextPage+postsPerPage);
+    posts.push(...nextPosts);
+    this.setState({
+      page: nextPage,
+      posts
+    })
+    console.log("more posts loaded")
   }
-  */
 
   // render - visual screen
   render() {
-    const {posts} = this.state;
+    const {posts, postsPerPage, allPosts, page} = this.state;
+    const noMorePosts = page + postsPerPage >= allPosts.length;
 
     return (
       // can only return one element
       <section className="container">
         <Posts posts={posts}/>
+        <div className="button-container">
+          <Button
+            text = "Load more posts"
+            onClick = {this.loadMorePosts}
+            disabled={noMorePosts}
+          />
+        </div>
       </section>
     );
   }
