@@ -6,8 +6,8 @@ const props = {
     posts: [
         {
             id:1,
-            title:"title 1",
-            body:"body 1",
+            title:"t1",
+            body:"b1",
             cover:"img/img1.png"
         },
         {
@@ -37,6 +37,13 @@ describe('<Posts/>', () => {
             .toHaveLength(3);
         expect(screen.getByRole('img', {name: /t3/i}))
             .toHaveAttribute('src', 'img/img3.png');
+    });
+
+    it('should not render posts', () => {
+        render(<Posts/>);
+
+        expect(screen.queryByRole('heading', {name: /t/i}))
+            .not.toBeInTheDocument();
     });
 
     it('should match snapshot', () => {

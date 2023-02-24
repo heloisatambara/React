@@ -9,17 +9,17 @@ exports[`<Posts/> should match snapshot 1`] = `
       class="post"
     >
       <img
-        alt="title 1"
+        alt="t1"
         src="img/img1.png"
       />
       <div
         class="post-content"
       >
         <h2>
-          title 1
+          t1
         </h2>
         <p>
-          body 1
+          b1
         </p>
       </div>
     </div>
