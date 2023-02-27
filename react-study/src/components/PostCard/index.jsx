@@ -12,5 +12,5 @@ export const PostCard = ({ post }) => (
 );
 
 PostCard.propTypes = {
-    post: P.array.isRequired,
+    post: P.object.isRequired,
 };
