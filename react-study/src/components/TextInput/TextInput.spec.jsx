@@ -14,7 +14,7 @@ describe("<TextInput/>", () => {
 
     it("should call handleChange function on each key pressed", () => {
         const fn = jest.fn();
-        render(<TextInput handleChange={fn} />);
+        render(<TextInput handleChange={fn} searchValue={"value"} />);
 
         const input = screen.getByPlaceholderText(/Search posts/i);
 
@@ -22,13 +22,15 @@ describe("<TextInput/>", () => {
 
         userEvent.type(input, value);
 
-        expect(input.value).toBe(value);
+        expect(input.value).toBe("value");
         expect(fn).toHaveBeenCalledTimes(value.length);
     });
 
     it("should match snapshot", () => {
         const fn = jest.fn();
-        const { container } = render(<TextInput handleChange={fn} />);
+        const { container } = render(
+            <TextInput handleChange={fn} searchValue={"test"} />
+        );
         expect(container).toMatchSnapshot();
     });
 });
