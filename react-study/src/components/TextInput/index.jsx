@@ -1,6 +1,7 @@
-import './styles.css'
+import "./styles.css";
+import P from "prop-types";
 
-export const TextInput = ({searchValue, handleChange}) => {  
+export const TextInput = ({ searchValue, handleChange }) => {
     return (
         <input
             className="text-input"
@@ -10,4 +11,9 @@ export const TextInput = ({searchValue, handleChange}) => {
             placeholder="Search posts"
         />
     );
-}
+};
+
+TextInput.propTypes = {
+    searchValue: P.string.isRequired,
+    handleChange: P.func.isRequired,
+};
